@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>iLoveBluemix</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<%- partial('../components/header-script') %>
+
+		<script>
+			var i = angular.module('ilovebluemix', []);
+		</script>
+
+		<script>
+			i.controller('validateLogin', function($scope, $rootScope, $http) {
+				$scope.message = '';
+				$scope.account = '';
+				$scope.password = '';
+				$scope.validateLogin = function() {
+					if($scope.account == ''){
+						$scope.message = '請輸入帳號';
+						return;
+					}
+					if($scope.password == ''){
+						$scope.message = '請輸入密碼';
+						return;
+					}
+					$http.post('/adm/validateLogin', {
+						account: $scope.account,
+						password: $scope.password,
+					})
+					.success(function(response, status) {
+						window.location = '/admin/index'
+					})
+					.error(function(response, status) {
+						$scope.message = '帳號或密碼錯誤';
+					})
+				}
+			});
+		</script>
+		
+	</head>
+	<body ng-app="ilovebluemix">
+		<div id="page-wrapper">
+
+			
+			<header id="header">
+				<h1><a href="/" class="icon fa-tint">iLoveBluemix 管理頁面</a></h1>
+			</header>
+
+			<section id="banner">
+				<div class="inner" ng-controller="validateLogin">
+					<h2>iLoveBluemix</h2>
+					<p>請登入</p>
+					<form method="post" ng-submit="validateLogin()">
+						<div class="row uniform 50%">
+							<div class="12u"><input type="text" ng-model="account" placeholder="帳號"/></div>
+						</div>
+						<div class="row uniform 50%">
+							<div class="12u"><input type="password" ng-model="password" placeholder="密碼"/></div>
+						</div>
+						<p>{{ message }}</p>
+						<div class="row uniform">
+							<div class="12u">
+								<ul class="actions">
+									<li><a ng-click="validateLogin()" class="button special">登入</a></li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</div>
+			</section>
+
+			<%- partial('../components/footer') %>
+
+		</div>
+
+		<%- partial('../components/footer-script') %>
+			
+
+	</body>
+</html>
