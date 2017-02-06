@@ -33,24 +33,36 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    controller: 'WebController',
+    controller: 'FrontEndController',
     action: 'indexIO'
   },
 
   '/:action': {
-    controller: 'WebController',
+    controller: 'FrontEndController',
     action: 'actionIO'
   },
 
+  '/activity/:id': {
+    controller: 'FrontEndController',
+    action: 'activityIO'
+  },
+
+  '/survey/:id': {
+    controller: 'FrontEndController',
+    action: 'surveyIO'
+  },
+
   '/admin/:action': {
-    controller: 'WebController',
+    controller: 'BackEndController',
     action: 'adminIO'
   },
 
-  '/activity/:id': {
-    controller: 'WebController',
-    action: 'activityIO'
-  }
+  '/admin/survey/:action': {
+    controller: 'BackEndController',
+    action: 'adminSurveyIO'
+  },
+
+
 
   /***************************************************************************
   *                                                                          *
