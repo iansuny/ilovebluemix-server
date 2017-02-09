@@ -7,56 +7,55 @@
 
 module.exports = {
 
-	indexIO: function(req, res) {
-		return res.view('blank', {
-			layout: 'index'
-		})
-	},
+    indexIO: function(req, res) {
+        return res.view('blank', {
+            layout: 'index'
+        })
+    },
 
-	actionIO: function(req, res) {
-		action = req.param('action');
-		switch(action) {
-			case 'index':
-				return res.view('blank', {
-					layout: 'index',
-				})
-			case 'admin':
-				return res.view('blank', {
-					layout: 'admin/login',
-				})
-			default:
-				return res.redirect('/');
-		}
-	},
-	
-	activityIO: function(req, res) {
-		id = req.param('id');
-		if (id == "all"){
+    actionIO: function(req, res) {
+        action = req.param('action');
+        switch (action) {
+            case 'admin':
+                return res.view('blank', {
+                    layout: 'admin/login',
+                })
+            case 'news':
+                return res.view('blank', {
+                    layout: 'news',
+                })
+            default:
+                return res.redirect('/');
+        }
+    },
 
-			return res.view('blank', {
-				layout: 'activity/index',
-			})
+    activityIO: function(req, res) {
+        id = req.param('id');
+        if (id == "all") {
 
-		} else {
+            return res.view('blank', {
+                layout: 'activity/index',
+            })
 
-			return res.view('blank', {
-				layout: 'activity/detail',
-			})
-		}
-	},
+        } else {
 
-	surveyIO: function(req, res) {
-		id = req.param('id');
+            return res.view('blank', {
+                layout: 'activity/detail',
+            })
+        }
+    },
 
-		Sur.findOne({
-			id: id
-		})
-		.exec(function(err, survey) {
-			if(typeof(survey) == 'undefined') return res.redirect('/');
+    surveyIO: function(req, res) {
+        id = req.param('id');
+
+        Sur.findOne({
+                id: id
+            })
+            .exec(function(err, survey) {
+                if (typeof(survey) == 'undefined') return res.redirect('/');
 
 
-		})
-	}
+            })
+    }
 
 };
-
